@@ -13,8 +13,8 @@ pub struct ProgrammingLanguage {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum FrameworkType {
-    CLIENT,
-    SERVER,
+    Client,
+    Server,
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow, ToSchema)]

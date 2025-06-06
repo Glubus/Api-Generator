@@ -3,11 +3,10 @@ use axum::{
     http::StatusCode,
     Json,
 };
-use sqlx::PgPool;
 
 use crate::{
     db::DatabaseManager,
-    models::language::{Framework, FrameworkWithLanguage, ProgrammingLanguage},
+    models::language::{FrameworkWithLanguage, ProgrammingLanguage},
 };
 
 /// Get all frameworks

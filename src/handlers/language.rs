@@ -3,7 +3,6 @@ use axum::{
     http::StatusCode,
     Json,
 };
-use sqlx::PgPool;
 
 use crate::{
     db::DatabaseManager,
