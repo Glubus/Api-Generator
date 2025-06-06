@@ -9,5 +9,6 @@ use crate::{db::DatabaseManager, handlers::language};
 pub fn router() -> Router<DatabaseManager> {
     Router::new()
         .route("/language", get(language::get_languages))
-        .route("/language/{id}", get(language::get_language_by_id))
+        .route("/language/:id", get(language::get_language_by_id))
+        .route("/language/:id/frameworks/:type", get(language::get_language_frameworks_by_type))
 } 
