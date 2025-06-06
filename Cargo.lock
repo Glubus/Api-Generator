@@ -1504,6 +1504,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "osef-gg-backend"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "argon2",
+ "async-trait",
+ "axum",
+ "bigdecimal 0.4.8",
+ "chrono",
+ "config",
+ "futures",
+ "hyper",
+ "include_dir",
+ "rust_decimal",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "sysinfo",
+ "tempfile",
+ "thiserror 2.0.12",
+ "tokio",
+ "tokio-test",
+ "toml",
+ "tower 0.4.13",
+ "tower 0.5.2",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "utoipa",
+ "utoipa-swagger-ui",
+ "uuid",
+ "validator",
+]
+
+[[package]]
 name = "overload"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2577,42 +2612,6 @@ dependencies = [
  "once_cell",
  "rustix",
  "windows-sys 0.59.0",
-]
-
-[[package]]
-name = "template-axum-sqlx-api"
-version = "0.3.0"
-dependencies = [
- "anyhow",
- "argon2",
- "async-trait",
- "axum",
- "bigdecimal 0.4.8",
- "chrono",
- "config",
- "futures",
- "hyper",
- "include_dir",
- "rust_decimal",
- "serde",
- "serde_json",
- "sqlx",
- "sysinfo",
- "tempfile",
- "template-axum-sqlx-api",
- "thiserror 2.0.12",
- "tokio",
- "tokio-test",
- "toml",
- "tower 0.4.13",
- "tower 0.5.2",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "utoipa",
- "utoipa-swagger-ui",
- "uuid",
- "validator",
 ]
 
 [[package]]

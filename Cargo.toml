@@ -1,17 +1,17 @@
 [package]
-name = "template-axum-sqlx-api"
-version = "0.4.0"
+name = "osef-gg-backend"
+version = "0.1.1"
 edition = "2024"
 authors = ["Osef <osefcode@gmail.com>"]
-description = "A template for building REST APIs with Axum and SQLx"
+description = "A backend for osef.gg"
 license = "MIT"
-repository = "http://localhost:3000/osef/template-axum-sqlx-api.git"
+repository = "http://localhost:3000/osef/osef.gg-backend.git"
 readme = "README.md"
 keywords = ["api", "axum", "sqlx", "postgres", "rest"]
 categories = ["web-programming::http-server", "database"]
 
 [lib]
-name = "template_axum_sqlx_api"
+name = "osef_gg_backend"
 path = "src/lib.rs"
 
 [dependencies]
@@ -70,4 +70,3 @@ tower = { version = "0.4", features = ["util"] }
 hyper = { version = "1.0", features = ["full"] }
 serde_json = "1.0"
 tempfile = "3.8"
-template-axum-sqlx-api = { path = "." }

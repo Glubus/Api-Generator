@@ -1,4 +1,4 @@
-name: template-db
+name: osef.gg
 
 services:
   postgres:

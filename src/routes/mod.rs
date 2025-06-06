@@ -19,18 +19,21 @@ use utoipa::OpenApi;
 
 // Re-export all route modules here
 pub mod help;
+pub mod language;
+pub mod framework;
 
 #[derive(OpenApi)]
-#[openapi(paths(crate::handlers::help::health_check, crate::handlers::help::health_light, crate::handlers::help::info, crate::handlers::help::ping))]
+#[openapi(paths(crate::handlers::help::health_check, crate::handlers::help::health_light,
+     crate::handlers::help::info, crate::handlers::help::ping,
+     crate::handlers::language::get_languages, crate::handlers::language::get_language_by_id,
+     crate::handlers::framework::get_frameworks, crate::handlers::framework::get_framework_by_id))]
 struct ApiDoc;
 
 pub fn create_router(db: DatabaseManager) -> Router {
     Router::new()
         .nest("/api", help::router())
+        .nest("/api", language::router())
+        .nest("/api", framework::router())
         .merge(SwaggerUi::new("/api/swagger").url("/api-doc/openapi.json", ApiDoc::openapi()))
-        // Add your other route modules here
-        // Example:
-        // .nest("/api", user::router())
-        // .nest("/api", product::router())
         .with_state(db)
 }
