@@ -1,102 +1,125 @@
-# Template Axum SQLx API
+# Osef.gg Backend
 
-Ce projet est un template pour une API REST construite avec Rust, Axum et SQLx. Il inclut une configuration de base pour le logging, la gestion des erreurs, et l'intégration avec une base de données PostgreSQL.
+Backend pour la plateforme Osef.gg, un générateur de code intelligent qui s'adapte à vos langages et frameworks préférés.
+
+## À propos du projet
+
+Osef.gg est un générateur de code qui permet de créer rapidement des projets en fonction des langages de programmation et frameworks choisis. Le système distingue les frameworks client et serveur pour générer une architecture adaptée à chaque besoin.
+
+## Technologies utilisées
+
+- 🦀 Rust - Langage de programmation performant et sûr
+- 🚀 Axum - Framework web moderne et asynchrone
+- 🗄️ PostgreSQL - Base de données relationnelle robuste
+- 📝 SQLx - Bibliothèque SQL type-safe pour Rust
+- 📚 OpenAPI/Swagger - Documentation d'API interactive
+- 🔄 Docker - Conteneurisation pour le développement et le déploiement
 
 ## Fonctionnalités
 
-- 🚀 API REST avec Axum
-- 🗄️ Intégration avec PostgreSQL via SQLx
-- 📝 Logging structuré avec tracing
-- 🔄 Gestion des erreurs avec thiserror
-- 📚 Documentation OpenAPI
-- 🧪 Tests d'intégration avec une base de données de test
+- ✅ Gestion des langages de programmation
+- ✅ Gestion des frameworks (client/serveur)
+- ✅ API RESTful pour accéder aux données
+- ✅ Documentation OpenAPI intégrée
+- ✅ Structure de base de données optimisée avec migrations
 
-## Prérequis
-
-- Rust (dernière version stable)
-- Cargo (>= 1.75.0)
-- Git (>= 2.42.0)
-- PostgreSQL
-- Sqlx Client (cargo install sqlx-cli)
 ## Installation
 
-1. Cloner le repository :
+### Prérequis
+
+- Rust (dernière version stable)
+- PostgreSQL
+- Docker (optionnel, pour le développement)
+- SQLx CLI (`cargo install sqlx-cli`)
+
+### Étapes d'installation
+
+1. Cloner le dépôt :
 ```bash
-git clone {link}
-cd template-axum-sqlx-api
+git clone https://github.com/votre-username/osef-gg-backend.git
+cd osef-gg-backend
 ```
 
 2. Configurer la base de données :
-   - Créer une base de données PostgreSQL
-   - Copier `config.toml.example` vers `config.toml`
-   - Modifier les paramètres de connexion dans `config.toml`
-
-## Développement
-
-### Base de données de développement
-
-Un fichier `compose.yml` est fourni dans le dossier `assets/` pour lancer rapidement une base de données PostgreSQL de développement :
-
 ```bash
-cd assets
-docker compose up -d
+# Démarrer PostgreSQL avec Docker (optionnel)
+docker-compose up -d
+
+# Ou configurer votre propre instance PostgreSQL
+# et modifier config.toml en conséquence
 ```
 
-La base de données sera accessible sur `localhost:5432` avec les identifiants par défaut :
-- Utilisateur : `postgres`
-- Mot de passe : `postgres`
-- Base de données : `template_db`
+3. Exécuter les migrations :
+```bash
+sqlx migrate run
+```
 
-### Lancer l'application
-
+4. Compiler et lancer le serveur :
 ```bash
 cargo run
 ```
 
-L'API sera disponible sur `http://localhost:3000`.
-
-### Tests
-
-Pour les tests d'intégration, un fichier `compose.yml` est fourni pour lancer une base de données PostgreSQL de test :
-
-```bash
-docker compose up -d
-```
-
-Puis lancer les tests :
-
-```bash
-cargo test
-```
-
-### Documentation
-
-La documentation OpenAPI est disponible à `http://localhost:3000/api/swagger`.
+Le serveur sera accessible à l'adresse `http://localhost:3000`.
 
 ## Structure du projet
 
 ```
 .
+├── migrations/        # Migrations SQLx pour la base de données
+│   ├── 20250606220312_language.sql   # Création des tables de langages et frameworks
+│   └── 20250606221953_fix_type_bug.sql  # Correction du champ type
 ├── src/
-│   ├── config.rs      # Configuration de l'application
-│   ├── error.rs       # Gestion des erreurs
-│   ├── handlers/      # Gestionnaires de routes
+│   ├── handlers/      # Gestionnaires des requêtes HTTP
+│   │   ├── framework.rs  # Endpoints pour les frameworks
+│   │   └── language.rs   # Endpoints pour les langages
 │   ├── models/        # Modèles de données
-│   └── main.rs        # Point d'entrée
-├── tests/             # Tests d'intégration
-├── assets/           # Ressources (compose.yml, etc.)
-├── config.toml        # Configuration
-└── Cargo.toml         # Dépendances
+│   │   └── language.rs   # Structures pour langages et frameworks
+│   ├── routes/        # Configuration des routes
+│   ├── config.rs      # Configuration de l'application
+│   ├── db.rs          # Gestion de la connexion à la base de données
+│   ├── lib.rs         # Fonctions partagées
+│   └── main.rs        # Point d'entrée de l'application
+├── config.toml        # Fichier de configuration
+└── Cargo.toml         # Dépendances du projet
 ```
 
-## Contribution
+## API Reference
 
-1. Fork le projet
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
+### Langages de programmation
+
+- `GET /api/language` - Liste tous les langages de programmation
+- `GET /api/language/{id}` - Récupère un langage spécifique avec ses frameworks
+
+### Frameworks
+
+- `GET /api/framework` - Liste tous les frameworks avec leurs langages associés
+- `GET /api/framework/{id}` - Récupère un framework spécifique avec son langage
+
+## Base de données
+
+Le schéma de la base de données comprend :
+
+- Table `programming_languages` - Stocke les langages de programmation
+- Table `frameworks` - Stocke les frameworks avec leur type (client/serveur) et une référence au langage
+
+## Développement
+
+### Tests
+
+Pour exécuter les tests :
+
+```bash
+cargo test
+```
+
+### Documentation de l'API
+
+La documentation Swagger est disponible à l'adresse : `http://localhost:3000/api/swagger`
+
+## Contribuer
+
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
 
 ## Licence
 
-MIT 
+Ce projet est sous licence [MIT](LICENSE). 
