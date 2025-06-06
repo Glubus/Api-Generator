@@ -24,25 +24,12 @@ CREATE TABLE frameworks (
 
 -- Add some initial programming languages
 INSERT INTO programming_languages (name) VALUES
-    ('JavaScript'),
     ('TypeScript'),
     ('Python'),
-    ('Java'),
-    ('C#'),
-    ('PHP'),
-    ('Ruby'),
-    ('Go'),
     ('Rust');
 
 -- Add some initial frameworks
 INSERT INTO frameworks (name, language_id, type) VALUES
     ('React', 1, 'client'),
-    ('Vue.js', 1, 'client'),
-    ('Angular', 2, 'client'),
-    ('Flask', 3, 'server'),
-    ('Spring', 4, 'server'),
-    ('ASP.NET', 5, 'server'),
-    ('Symfony', 6, 'server'),
-    ('Next.js', 2, 'server'),
-    ('Axum', 9, 'server'),
-    ('Lepton', 9, 'client');
+    ('Flask', 2, 'server'),
+    ('Axum', 3, 'server');
