@@ -132,13 +132,13 @@ pub async fn get_language_frameworks_by_type(
         return Err(StatusCode::NOT_FOUND);
     }
 
-    // Get frameworks by type
+    // Get frameworks by type - using a different approach to handle the enum
     let frameworks = sqlx::query_as!(
         Framework,
         r#"
         SELECT id, name, language_id, f_type::text as f_type, created_at, updated_at
         FROM frameworks
-        WHERE language_id = $1 AND f_type = $2
+        WHERE language_id = $1 AND f_type::text = $2
         ORDER BY name
         "#,
         id,
