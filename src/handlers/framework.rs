@@ -25,7 +25,7 @@ pub async fn get_frameworks(
     let frameworks = sqlx::query!(
         r#"
         SELECT 
-            f.id, f.name, f.f_type::text as f_type, f.created_at, f.updated_at,
+            f.id, f.name, f.f_type::text as f_type, f.codegenr_config, f.created_at, f.updated_at,
             l.id as language_id, l.name as language_name, 
             l.created_at as "language_created_at!", l.updated_at as "language_updated_at!"
         FROM frameworks f
@@ -41,6 +41,7 @@ pub async fn get_frameworks(
         id: row.id,
         name: row.name,
         f_type: row.f_type,
+        codegenr_config: row.codegenr_config,
         language: ProgrammingLanguage {
             id: row.language_id,
             name: row.language_name,
@@ -76,7 +77,7 @@ pub async fn get_framework_by_id(
     let framework = sqlx::query!(
         r#"
         SELECT 
-            f.id, f.name, f.f_type::text as f_type, f.created_at, f.updated_at,
+            f.id, f.name, f.f_type::text as f_type, f.codegenr_config, f.created_at, f.updated_at,
             l.id as language_id, l.name as language_name, 
             l.created_at as "language_created_at!", l.updated_at as "language_updated_at!"
         FROM frameworks f
@@ -94,6 +95,7 @@ pub async fn get_framework_by_id(
         id: framework.id,
         name: framework.name,
         f_type: framework.f_type,
+        codegenr_config: framework.codegenr_config,
         language: ProgrammingLanguage {
             id: framework.language_id,
             name: framework.language_name,

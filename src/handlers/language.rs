@@ -72,7 +72,7 @@ pub async fn get_language_by_id(
     let frameworks = sqlx::query_as!(
         Framework,
         r#"
-        SELECT id, name, language_id, f_type::text as f_type, created_at, updated_at
+        SELECT id, name, language_id, f_type::text as f_type, codegenr_config, created_at, updated_at
         FROM frameworks
         WHERE language_id = $1
         ORDER BY name
@@ -136,7 +136,7 @@ pub async fn get_language_frameworks_by_type(
     let frameworks = sqlx::query_as!(
         Framework,
         r#"
-        SELECT id, name, language_id, f_type::text as f_type, created_at, updated_at
+        SELECT id, name, language_id, f_type::text as f_type, codegenr_config, created_at, updated_at
         FROM frameworks
         WHERE language_id = $1 AND f_type::text = $2
         ORDER BY name

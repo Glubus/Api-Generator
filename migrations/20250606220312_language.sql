@@ -23,13 +23,3 @@ CREATE TABLE frameworks (
 );
 
 -- Add some initial programming languages
-INSERT INTO programming_languages (name) VALUES
-    ('TypeScript'),
-    ('Python'),
-    ('Rust');
-
--- Add some initial frameworks
-INSERT INTO frameworks (name, language_id, type) VALUES
-    ('React', 1, 'client'),
-    ('Flask', 2, 'server'),
-    ('Axum', 3, 'server');

@@ -1,0 +1,55 @@
+[clients_models_ts]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/client/ts-react-vite/types.hbs"]
+output = "./frontend/src/api/types/"
+custom_helpers = ["./codegenr/helpers/"]
+global_parameters = { baseUrl = "localhost:3000/api" }
+
+[client_services_ts]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/client/ts-react-vite/api.hbs"]
+output = "./frontend/src/api/"
+custom_helpers = ["./codegenr/helpers/client/ts-react-vite"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }
+
+
+[server_models_flask]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/server/flask/models.hbs"]
+output = "./backend/app/models"
+custom_helpers = ["./codegenr/helpers/server/flask"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }
+
+[server_controller_flask]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/server/flask/controller.hbs"]
+output = "./backend/app/controller"
+custom_helpers = ["./codegenr/helpers/server/flask"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }
+
+[server_helpers_flask]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/server/flask/helpers.hbs"]
+output = "./backend/app/helpers"
+custom_helpers = ["./codegenr/helpers/server/flask"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }
+
+[server_app_flask]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/server/flask/app.hbs"]
+output = "./backend/app"
+custom_helpers = ["./codegenr/helpers/server/flask"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }
+
+[server_models_rust]
+source = "./codegenr/openapi.yaml"
+templates = ["./codegenr/templates/server/rust-axum/models.hbs"]
+output = "./backend/src/models"
+custom_helpers = ["./codegenr/helpers/server/rust-axum"]
+intermediate = "codegenr"
+global_parameters = { baseUrl = "http://localhost:3000/api" }

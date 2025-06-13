@@ -21,6 +21,8 @@ use utoipa::OpenApi;
 pub mod help;
 pub mod language;
 pub mod framework;
+pub mod code;
+pub mod download;
 
 #[derive(OpenApi)]
 #[openapi(paths(crate::handlers::help::health_check, crate::handlers::help::health_light,
@@ -34,6 +36,8 @@ pub fn create_router(db: DatabaseManager) -> Router {
         .nest("/api", help::router())
         .nest("/api", language::router())
         .nest("/api", framework::router())
+        .nest("/api", code::router())
+        .nest("/api", download::router())
         .merge(SwaggerUi::new("/api/swagger").url("/api-doc/openapi.json", ApiDoc::openapi()))
         .with_state(db)
 }

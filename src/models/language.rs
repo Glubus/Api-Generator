@@ -23,6 +23,7 @@ pub struct Framework {
     pub name: String,
     pub language_id: i32,
     pub f_type: Option<String>,
+    pub codegenr_config: Option<Vec<String>>,
     pub created_at: Option<DateTime<Utc>>,
     pub updated_at: Option<DateTime<Utc>>,
 }
@@ -33,10 +34,11 @@ pub struct FrameworkWithLanguage {
     pub id: i32,
     pub name: String,
     pub f_type: Option<String>,
+    pub codegenr_config: Option<Vec<String>>,
     pub language: ProgrammingLanguage,
     pub created_at: Option<DateTime<Utc>>,
     pub updated_at: Option<DateTime<Utc>>,
-} 
+}
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct LanguageWithFrameworks {

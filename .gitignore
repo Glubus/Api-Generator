@@ -43,3 +43,6 @@ htmlcov/
 
 # Scripts
 push-all.sh
+
+./temp
+./public
