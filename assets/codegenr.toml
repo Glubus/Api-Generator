@@ -13,7 +13,6 @@ custom_helpers = ["./codegenr/helpers/client/ts-react-vite"]
 intermediate = "codegenr"
 global_parameters = { baseUrl = "http://localhost:3000/api" }
 
-
 [server_models_flask]
 source = "./codegenr/openapi.yaml"
 templates = ["./codegenr/templates/server/flask/models.hbs"]

@@ -228,7 +228,7 @@ pub async fn get_code(
     let zip_data = zip_directory(&uuid_dir).map_err(StatusCode::from)?;
     
     // Étape 5: Sauvegarder le zip dans le répertoire public
-    let zip_path = save_zip_to_public(zip_data.clone(), &file_id).map_err(StatusCode::from)?;
+    save_zip_to_public(zip_data.clone(), &file_id).map_err(StatusCode::from)?;
     
     // Étape 6: Nettoyer le répertoire temporaire
     cleanup_temp_directory(&uuid_dir);
