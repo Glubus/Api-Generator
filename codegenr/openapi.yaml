@@ -1,0 +1,467 @@
+openapi: 3.0.0
+info:
+  title: Cobra API
+  version: 1.0.0
+tags:
+  - name: products
+    description: Products
+  - name: users
+    description: Users
+  - name: configs
+    description: Configs
+components:
+  schemas:
+    ProductCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the product
+        name:
+          type: string
+          description: Name of the product
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the product was created
+        updated_at:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [undetected, detected, updating, unknown]
+          description: Status of the product
+        tags:
+          type: array
+          items:
+            type: string
+            description: Tags associated with the product
+        images:
+          type: array
+          items:
+            type: string
+            description: Images associated with the product
+        version:
+          type: string
+          description: Latest version of the product
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the product
+        name:
+          type: string
+          description: Name of the product
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the product was created
+        updated_at:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [undetected, detected, updating, unknown]
+          description: Status of the product
+        tags:
+          type: array
+          items:
+            type: string
+            description: Tags associated with the product
+        images:
+          type: array
+          items:
+            type: string
+            description: Images associated with the product
+        version:
+          type: string
+          description: Latest version of the product
+        subscription:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubscriptionType"
+    UserCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the user
+        username:
+          type: string
+          description: Username of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the user
+        username:
+          type: string
+          description: Username of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the user was created
+        subscriptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subscription"
+    SubscriptionCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription
+        product_id:
+          type: integer
+          description: Identifier of the product the subscription is for
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the subscription was created
+        expires_at:
+          type: string
+          format: date
+          description: Date and time when the subscription expires
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription
+        product_id:
+          type: integer
+          description: Identifier of the product the subscription is for
+        subscription_type:
+          $ref: "#/components/schemas/SubscriptionType"
+        expires_at:
+          type: string
+          format: date
+          description: Date and time when the subscription expires
+    SubscriptionTypeCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription
+        product_id:
+          type: integer
+          description: Identifier of the product the subscription is for
+        price:
+          type: number
+          description: Price of the subscription
+        currency:
+          type: string
+          description: Currency of the subscription
+        duration:
+          type: integer
+          description: Duration of the subscription in days
+        is_active:
+          type: boolean
+          description: Whether the subscription is active
+    SubscriptionType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the subscription was created
+        price:
+          type: number
+          description: Price of the subscription in cents
+        currency:
+          type: string
+          description: Currency of the subscription euro usd etc
+        duration:
+          type: integer
+          description: Duration of the subscription in days
+        is_active:
+          type: boolean
+          description: Whether the subscription is purchasable
+        total_places:
+          type: integer
+          description: Total number of places for the subscription
+        used_places:
+          type: integer
+          description: Number of places used by the subscription
+    ReleaseCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the release        
+        version:
+          type: string
+          description: Version of the release
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the release was created
+    Release:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the release
+        product_id:
+          type: integer
+          description: Identifier of the product the release is for
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the release was created
+        version:
+          type: string
+          description: Version of the release
+        features:
+          type: array
+          items:
+            type: string  
+            description: feature of the release
+    ConfigCollectionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the config
+        name:
+          type: string
+          description: Name of the config
+        product_id:
+          type: integer
+          description: Identifier of the product the config is for
+        user_id:
+          type: integer
+          description: Identifier of the user the config is for
+        release_id:
+          type: integer
+          description: Identifier of the release the config is for
+        updated_at:
+          type: string
+          format: date
+          description: Date and time when the config was updated
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the config was created
+        images:
+          type: array
+          items:
+            type: string
+            description: Images associated with the config
+    Config:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the config
+        name:
+          type: string
+          description: Name of the config
+        description:
+          type: string
+          description: Description of the config
+        created_at:
+          type: string
+          format: date
+          description: Date and time when the config was created
+        updated_at:
+          type: string
+          format: date
+          description: Date and time when the config was updated
+        product_id:
+          type: integer
+          description: Identifier of the product the config is for
+        user_id:
+          type: integer
+          description: Identifier of the user the config is for
+        release_id:
+          type: integer
+          description: Identifier of the release the config is for
+        images:
+          type: array
+          items:
+            type: string
+            description: Images associated with the config
+
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Get all products
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductCollectionItem"
+    post:
+      tags:
+        - products
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array 
+              items:
+                $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: A product
+  /products/{id}:
+    get:
+      tags:
+        - products
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+  /products/{id}/releases:
+    get:
+      tags:
+        - products
+      summary: Get all releases for a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A list of releases
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Release"
+        "404":
+          description: Product not found
+  /users/{id}:
+    post:
+      tags:
+        - users
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    get:
+      tags:
+        - users
+      summary: Get a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+  /users/{id}/configs:
+    get:
+      tags:
+        - users
+      summary: Get all configs for a user
+      parameters:
+        - name: id
+          in: path
+          required: true  
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A list of configs
+          content:
+            application/json: 
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConfigCollectionItem"
+        "404":
+          description: User not found 
+  /configs:
+    get:
+      tags:
+        - configs
+      summary: Get all configs
+      responses:
+        "200":
+          description: A list of configs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConfigCollectionItem"
+  /configs/{id}:
+    get:
+      tags:
+        - configs
+      summary: Get a config by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A config
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Config"
+        "404":
+          description: Config not found

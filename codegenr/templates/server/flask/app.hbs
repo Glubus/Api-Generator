@@ -1,0 +1,23 @@
+### FILE app.py
+
+from flask import Flask
+from flask_cors import CORS
+{{#each tags}}
+from .controller.{{this.name}} import api as {{this.name}}_api
+{{/each}}
+
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+    
+    {{#each tags}}
+    app.register_blueprint({{this.name}}_api, url_prefix='/api/{{this.name}}')
+    {{/each}}
+    
+    return app
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(debug=True) 
+
+### / FILE

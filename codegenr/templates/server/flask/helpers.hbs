@@ -1,0 +1,27 @@
+{{#each tags}}
+### FILE {{this.name}}.py
+
+{{#with_set "tags" this.name}}
+
+from flask import Blueprint, jsonify, request
+from typing import List
+from ..models import *
+
+api = Blueprint('api', __name__)
+
+{{#each ../paths}}
+{{#each this}}
+{{#if (eq (test_tags_controller (get "tags") this.tags) 1)}}
+def query_{{route_namer @../key}}({{#if this.parameters}}{{#each this.parameters}}{{this.name}}: {{#with this.schema}}{{#if (eq this.type "object")}}{{type this.type this.x-refName}}{{else}}{{#if (eq this.type "array")}}{{#if (eq this.items.type "object")}}{{type this.type this.items.type this.items.x-refName}}{{else}}{{type this.type this.items.type}}{{/if}}{{else}}{{type this.type this.format}}{{/if}}{{/if}}{{/with}}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}) -> {{#if (eq this.responses.200.content.application/json.schema.type "object")}}{{type this.responses.200.content.application/json.schema.type this.responses.200.content.application/json.schema.x-refName}}{{else}}{{type this.responses.200.content.application/json.schema.type}}{{/if}}:  
+    # TODO: Implement your own query 
+    data = {{#with this.responses.200.content.[application/json].schema}}{{#if (eq this.type "object")}}{{type this.type this.x-refName}}{{else}}{{#if (eq this.type "array")}}{{#if (eq this.items.type "object")}}{{type this.type this.items.type this.items.x-refName}}{{else}}{{type this.type this.items.type}}{{/if}}{{else}}{{type this.type this.format}}{{/if}}{{/if}}{{/with}}()
+    return data
+
+{{/if}}
+{{/each}}
+{{/each}} 
+
+{{/with_set}}
+{{/each}}
+
+### / FILE

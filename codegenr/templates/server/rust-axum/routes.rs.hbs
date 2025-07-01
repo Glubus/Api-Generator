@@ -1,0 +1,19 @@
+{{#each components.paths}}
+{{set "fileName" (snake_case @key)}}
+### FILE {{get "fileName"}}.rs
+
+use axum::{routing::{get, post, put, delete}, Router,};
+use sqlx::PgPool;
+
+pub fn {{get "fileName"}}_routes(pool: PgPool) -> Router {
+    Router::new()
+        {{#each this}}  
+        {{#each (rust_routes this @key @key)}}
+        {{this}}
+        {{/each}}
+        {{/each}}
+        .with_state(pool)
+} 
+
+### /FILE   
+{{/each}} 

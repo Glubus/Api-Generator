@@ -1,0 +1,58 @@
+### FILE api.ts
+
+import axios, { AxiosInstance } from 'axios';
+import { {{#each components.schemas}}{{@key}}{{#unless @last}},
+          {{/unless}}{{/each}} 
+} from './types';
+
+const baseURL = "{{global_parameter "baseUrl"}}";
+
+export class ApiClient {
+  private client: AxiosInstance;
+
+  constructor(baseURL: string) {
+    this.client = axios.create({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  {{#each paths}}
+  {{#each this}}
+  {{#if (eq @key "get")}}
+  async {{@key}}{{route_namer @../key}}({{#if this.parameters}}{{#each this.parameters}}{{#with this.schema}}{{../name}} : {{#if (eq type "object")}}{{ts_type type x-refName}}{{else}}{{#if (eq type "array")}}{{#if (eq items.type "object")}}{{ts_type type items.type items.x-refName}}{{else}}{{ts_type type items.type}}{{/if}}{{else}}{{ts_type type format}}{{/if}}{{/if}}{{/with}}{{/each}}{{/if}}) 
+     : Promise<{{#with this.responses.200.content.[application/json].schema}}{{#if (eq type "object")}}{{ts_type type x-refName}}{{else}}{{#if (eq type "array")}}{{#if (eq items.type "object")}}{{ts_type type items.type items.x-refName}}{{else}}{{ts_type type items.type}}{{/if}}{{else}}{{ts_type type format}}{{/if}}{{/if}}{{/with}}> 
+  {
+    try {
+      const response = await this.client.{{@key}}(`${baseURL}{{ts_route_parameters @../key}}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  }
+  {{/if}}
+
+  {{#if (eq @key "post")}}
+
+  async {{@key}}{{route_namer @../key}}({{#if this.parameters}}{{#each this.parameters}}{{#with this.schema}}{{../name}} : {{#if (eq type "object")}}{{ts_type type x-refName}}{{else}}{{#if (eq type "array")}}{{#if (eq items.type "object")}}{{ts_type type items.type items.x-refName}}{{else}}{{ts_type type items.type}}{{/if}}{{else}}{{ts_type type format}}{{/if}}{{/if}}{{/with}}{{/each}},{{/if}}{{#if this.requestBody}}{{#with this.requestBody.content.[application/json].schema}}data : {{#if (eq type "object")}}{{ts_type type x-refName}}{{else}}{{#if (eq type "array")}}{{#if (eq items.type "object")}}{{ts_type type items.type items.x-refName}}{{else}}{{ts_type type items.type}}{{/if}}{{else}}{{ts_type type format}}{{/if}}{{/if}}{{/with}}{{/if}})
+      {{#if this.responses.200.content}}: Promise<{{#with this.responses.200.content.[application/json].schema}}{{#if (eq type "object")}}{{ts_type type x-refName}}{{else}}{{#if (eq type "array")}}{{#if (eq items.type "object")}}{{ts_type type items.type items.x-refName}}{{else}}{{ts_type type items.type}}{{/if}}{{else}}{{ts_type type format}}{{/if}}{{/if}}{{/with}}>{{/if}}
+  {
+    try {
+      const response = await this.client.{{@key}}(`${baseURL}{{ts_route_parameters @../key}}`, data);
+      {{#if this.responses.200.content}}
+      return response.data;
+      {{/if}}
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  }
+  {{/if}}
+  {{/each}}
+  {{/each}}
+}
+
+### /FILE

@@ -1,0 +1,20 @@
+### FILE models.py
+
+from datetime import datetime
+from typing import List, Optional
+from pydantic import BaseModel
+
+{{#each components.schemas}}
+class {{@key}}(BaseModel):
+    {{#each this.properties}}
+    {{@key}}: {{#if (eq this.type "object")}}{{type this.type this.x-refName}}{{else}}{{#if (eq this.type "array")}}{{#if (eq this.items.type "object")}}{{type this.type this.items.type this.items.x-refName}}{{else}}{{type this.type this.items.type}}{{/if}}{{else}}{{type this.type this.format}}{{/if}}{{/if}}
+    {{/each}}
+    
+    # TODO : Dont forget to make your own validators
+
+    class Config:
+        from_attributes = True
+
+{{/each}} 
+
+### /FILE

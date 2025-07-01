@@ -1,0 +1,38 @@
+### FILE generated.rs
+
+use serde::{Serialize, Deserialize};
+use std::fmt;
+use chrono::NaiveDateTime;
+
+{{#each components.schemas}}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct {{@key}} {
+  {{#each this.properties}}
+  pub {{@key}} : {{#if (eq this.type "object")}}{{rust_type this.type this.x-refName}}{{else}}{{#if (eq this.type "array")}}{{#if (eq this.items.type "object")}}{{rust_type this.type this.items.type this.items.x-refName}}{{else}}{{rust_type this.type this.items.type}}{{/if}}{{else}}{{rust_type this.type this.format}}{{/if}}{{/if}}
+  {{/each}}
+}
+
+impl {{@key}} {
+  pub fn new({{#each this.properties}}{{@key}} : {{rust_type this.type this.format this.items.type}}{{#unless @last}}, {{/unless}}{{/each}}) -> Self {
+    Self { {{#each this.properties}}{{@key}}{{#unless @last}}, {{/unless}}{{/each}} }
+  }
+}
+
+impl fmt::Display for {{@key}} {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "{{@key}} {{#if this.properties.id}}(id: {}){{/if}}", {{#if this.properties.id}}self.id{{else}}""{{/if}})
+  }
+}
+
+{{#if this.properties.enum}}
+impl {{@key}} {
+  pub fn values() -> Vec<&'static str> {
+    vec![{{#each this.properties.enum}}"{{this}}", {{/each}}]
+  }
+}
+{{/if}}
+
+{{/each}}
+
+### /FILE
